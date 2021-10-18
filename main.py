@@ -26,8 +26,8 @@ def main():
     x0, y0, x, y = receber_valores(10,9)
 
     mapa = Astar(mat)
-    #caminho = mapa.run([0,0],[10,9])
     caminho = mapa.run([x0, y0], [x, y])
+
     ################# gráfico #########################
     G = nx.grid_2d_graph(11, 10)
 
@@ -60,8 +60,6 @@ def main():
             node_color=color_map,
             with_labels=True,
             node_size=600)
-
-    # Mostrar o gráfico
     plt.show()
 
 main()
