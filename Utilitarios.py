@@ -8,13 +8,16 @@ def verifica_valores(ponto, node) -> bool:
 
     return (x_ponto == x_node) and (y_ponto == y_node)
 
-def converter_para_hexadecimal(verde) -> str:
-    red = 152
-    green = verde
-    blue = 123
+def converter_para_hexadecimal(rgb) -> str:
+    for i in range(0,3):
+        if(rgb[i] > 255):
+            rgb[i] = 255
+    red = rgb[0]
+    green = rgb[1]
+    blue = rgb[2]
     return '#%02x%02x%02x' % (red, green, blue)
 
-def receber_valores(largura,altura):
+def receber_valores(largura,altura) -> list:
 
     valores = []
     largura_e_altura = [largura,altura]
@@ -38,3 +41,13 @@ def receber_valores(largura,altura):
                 print(f'Digite um valor até {largura_e_altura[i%2]}')
 
     return valores
+
+def retorna_cores(caminho,rgb) -> dict:
+    quantidade_de_nodos = len(caminho)
+    invervalos = [int(pixel/(quantidade_de_nodos)) for pixel in rgb]
+    cores = {}
+    for i in range(0,quantidade_de_nodos):
+        x,y = caminho[i]
+        cores[(x,y)] = [(pixel * (i+5)) for pixel in invervalos]
+
+    return cores
