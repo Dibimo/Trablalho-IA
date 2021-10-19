@@ -51,3 +51,11 @@ def retorna_cores(caminho,rgb) -> dict:
         cores[(x,y)] = converter_para_hexadecimal([(pixel * (i+5)) for pixel in invervalos])
 
     return cores
+
+def retorna_labels_nodos(grafico,nomes):
+    nomes_nodos = {}
+    i = 0
+    for nodo in grafico:
+        nomes_nodos[nodo] = nomes[i]
+        i += 1
+    return nomes_nodos

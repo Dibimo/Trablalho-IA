@@ -1,5 +1,5 @@
 from astar_python.astar import Astar
-from Utilitarios import retorna_cores, verifica_pontos_iguais, receber_valores
+from Utilitarios import retorna_cores, retorna_labels_nodos, verifica_pontos_iguais, receber_valores
 import matplotlib.pyplot as plt
 import networkx as nx
 
@@ -59,13 +59,10 @@ def main():
 
     ################# Pintar o caminho correto com cor diferente ################
     lista_de_cores = []
-    nomes_nodos = {}
-    i = 0
+    nomes_nodos = retorna_labels_nodos(grafico,nomes)
+
     for nodo in grafico:
         cor_nodo = "orange"
-        nomes_nodos[nodo] = nomes[i]
-
-        i += 1
         for ponto in caminho:
             if verifica_pontos_iguais(ponto,nodo):
                 cor_nodo = cores_dos_nodos[nodo]
