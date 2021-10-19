@@ -1,6 +1,5 @@
 from astar_python.astar import Astar
-from numpy import False_
-from Utilitarios import converter_para_hexadecimal, retorna_cores, verifica_valores, receber_valores
+from Utilitarios import retorna_cores, verifica_pontos_iguais, receber_valores
 import matplotlib.pyplot as plt
 import networkx as nx
 
@@ -62,16 +61,15 @@ def main():
     lista_de_cores = []
     nomes_nodos = {}
     i = 0
-    for node in grafico:
-        color = "orange"
-        nomes_nodos[node] = nomes[i]
+    for nodo in grafico:
+        cor_nodo = "orange"
+        nomes_nodos[nodo] = nomes[i]
 
         i += 1
         for ponto in caminho:
-            if verifica_valores(ponto,node):
-                color = cores_dos_nodos[node]
-                color = converter_para_hexadecimal(color)
-        lista_de_cores.append(color)   
+            if verifica_pontos_iguais(ponto,nodo):
+                cor_nodo = cores_dos_nodos[nodo]
+        lista_de_cores.append(cor_nodo)   
     
     nx.draw(grafico, pos=posicoes,
             node_color=lista_de_cores,
