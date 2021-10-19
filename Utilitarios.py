@@ -1,5 +1,5 @@
 
-def verifica_valores(ponto, node) -> bool:
+def verifica_pontos_iguais(ponto, node) -> bool:
     x_ponto = ponto[0]
     y_ponto = ponto[1]
 
@@ -48,6 +48,6 @@ def retorna_cores(caminho,rgb) -> dict:
     cores = {}
     for i in range(0,quantidade_de_nodos):
         x,y = caminho[i]
-        cores[(x,y)] = [(pixel * (i+5)) for pixel in invervalos]
+        cores[(x,y)] = converter_para_hexadecimal([(pixel * (i+5)) for pixel in invervalos])
 
     return cores
