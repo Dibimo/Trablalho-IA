@@ -9,7 +9,7 @@ def main():
     # distancia é sempre 1
     # 0 siguinifica custo 0 para percorrer
     # maiores valores implicam em desviar a rota, buscando um custo menor
-    mat = [
+    matriz_de_pesos = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5],
         [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -35,19 +35,17 @@ def main():
         'A-9', 'B-9', 'C-9', 'D-9', 'E-9', 'F-9', 'G-9', 'H-9', 'I-9', 'J-9',
         'A-10', 'B-10', 'C-10', 'D-10', 'E-10', 'F-10', 'G-10', 'H-10', 'I-10', 'J-10']
 
-    print(nomes[0])
-
     ################# A* Rodando ######################
 
     x0, y0, x, y = receber_valores(10,9)
 
-    mapa = Astar(mat)
+    mapa = Astar(matriz_de_pesos)
     caminho = mapa.run([x0, y0], [x, y])
     cores_dos_nodos = retorna_cores(caminho, [105, 245, 112])
     ################# gráfico #########################
-    G = nx.grid_2d_graph(11, 10)
+    grafico = nx.grid_2d_graph(11, 10)
 
-    G.add_edges_from([
+    grafico.add_edges_from([
         ((x, y), (x+1, y+1))
         for x in range(10)
         for y in range(9)
@@ -58,13 +56,13 @@ def main():
     ], weight=1.4)
 
     plt.figure(figsize=(10, 10))
-    pos = {(x, y): (x, -y) for x, y in G.nodes()}
+    posicoes = {(x, y): (x, -y) for x, y in grafico.nodes()}
 
     ################# Pintar o caminho correto com cor diferente ################
-    color_map = []
+    lista_de_cores = []
     nomes_nodos = {}
     i = 0
-    for node in G:
+    for node in grafico:
         color = "orange"
         nomes_nodos[node] = nomes[i]
 
@@ -73,14 +71,14 @@ def main():
             if verifica_valores(ponto,node):
                 color = cores_dos_nodos[node]
                 color = converter_para_hexadecimal(color)
-        color_map.append(color)    
+        lista_de_cores.append(color)   
     
-    nx.draw(G, pos=pos,
-            node_color=color_map,
+    nx.draw(grafico, pos=posicoes,
+            node_color=lista_de_cores,
             with_labels=False,
             node_size=1000)
     
-    nx.draw_networkx_labels(G,pos,labels=nomes_nodos)
+    nx.draw_networkx_labels(grafico,posicoes,labels=nomes_nodos)
     plt.show()
 
 main()
