@@ -42,7 +42,7 @@ def receber_valores(largura,altura) -> list:
 
     return valores
 
-def retorna_cores(caminho,rgb) -> dict:
+def retorna_valores_cores(caminho,rgb) -> dict:
     quantidade_de_nodos = len(caminho)
     invervalos = [int(pixel/(quantidade_de_nodos)) for pixel in rgb]
     cores = {}
@@ -52,10 +52,24 @@ def retorna_cores(caminho,rgb) -> dict:
 
     return cores
 
-def retorna_labels_nodos(grafico,nomes):
+def retorna_lista_labels(grafico,nomes):
     nomes_nodos = {}
     i = 0
     for nodo in grafico:
         nomes_nodos[nodo] = nomes[i]
         i += 1
     return nomes_nodos
+
+def retorna_lista_cores(grafico,matriz_de_pesos,caminho,cor_rgb):
+    valores_cores_caminho = retorna_valores_cores(caminho, cor_rgb)
+    lista_de_cores = []
+    for nodo in grafico:
+        cor_nodo = "orange"
+        x, y = nodo
+        if([x, y] in caminho):
+            cor_nodo = valores_cores_caminho[nodo]
+        if(matriz_de_pesos[y][x] == None):
+            cor_nodo = "#bd2b2b"
+        lista_de_cores.append(cor_nodo)
+    return lista_de_cores
+
