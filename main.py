@@ -3,6 +3,9 @@ from Utilitarios import retorna_lista_cores, retorna_lista_labels, verifica_pont
 import matplotlib.pyplot as plt
 import networkx as nx
 
+LARGURA_MATRIZ = 11
+ALTURA_MATRIZ = 10
+
 def main():
     N = None
     ################### espaço amostral para percorrer #####################
@@ -37,22 +40,22 @@ def main():
 
     ################# A* Rodando ######################
 
-    x0, y0, x, y = receber_valores(10,9)
+    x0, y0, x, y = receber_valores(LARGURA_MATRIZ,ALTURA_MATRIZ)
 
     mapa = Astar(matriz_de_pesos)
     caminho = mapa.run([x0, y0], [x, y])
 
     ################# gráfico #########################
-    grafico = nx.grid_2d_graph(11, 10)
+    grafico = nx.grid_2d_graph(LARGURA_MATRIZ, ALTURA_MATRIZ)
 
     grafico.add_edges_from([
         ((x, y), (x+1, y+1))
-        for x in range(10)
-        for y in range(9)
+        for x in range(LARGURA_MATRIZ - 1)
+        for y in range(ALTURA_MATRIZ - 1)
     ] + [
         ((x+1, y), (x, y+1))
-        for x in range(10)
-        for y in range(9)
+        for x in range(LARGURA_MATRIZ - 1)
+        for y in range(ALTURA_MATRIZ - 1)
     ], weight=1.4)
 
     plt.figure(figsize=(10, 10))
