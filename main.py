@@ -1,9 +1,10 @@
 from astar_python.astar import Astar
-from Utilitarios import retorna_cores, retorna_labels_nodos, verifica_pontos_iguais, receber_valores
+from Utilitarios import retorna_lista_cores, retorna_lista_labels, verifica_pontos_iguais, receber_valores
 import matplotlib.pyplot as plt
 import networkx as nx
 
 def main():
+    N = None
     ################### espaço amostral para percorrer #####################
     # distancia é sempre 1
     # 0 siguinifica custo 0 para percorrer
@@ -17,7 +18,7 @@ def main():
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [N, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     ]
 
@@ -40,7 +41,7 @@ def main():
 
     mapa = Astar(matriz_de_pesos)
     caminho = mapa.run([x0, y0], [x, y])
-    cores_dos_nodos = retorna_cores(caminho, [105, 245, 112])
+
     ################# gráfico #########################
     grafico = nx.grid_2d_graph(11, 10)
 
@@ -58,15 +59,8 @@ def main():
     posicoes = {(x, y): (x, -y) for x, y in grafico.nodes()}
 
     ################# Pintar o caminho correto com cor diferente ################
-    lista_de_cores = []
-    nomes_nodos = retorna_labels_nodos(grafico,nomes)
-
-    for nodo in grafico:
-        cor_nodo = "orange"
-        for ponto in caminho:
-            if verifica_pontos_iguais(ponto,nodo):
-                cor_nodo = cores_dos_nodos[nodo]
-        lista_de_cores.append(cor_nodo)   
+    lista_de_cores = retorna_lista_cores(grafico,matriz_de_pesos,caminho,[105, 245, 112])
+    nomes_nodos = retorna_lista_labels(grafico,nomes)
     
     nx.draw(grafico, pos=posicoes,
             node_color=lista_de_cores,
