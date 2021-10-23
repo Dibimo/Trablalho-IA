@@ -58,7 +58,7 @@ def main():
             node_size=1000)
     
     # Desenhando nomes dos nodos
-    nx.draw_networkx_labels(grafico,posicoes,labels=nomes_nodos)
+    nx.draw_networkx_labels(grafico,posicoes,labels=nomes_nodos,font_size=8)
     plt.show()
 
 main()
