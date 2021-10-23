@@ -1,3 +1,4 @@
+import Matrizes
 
 def verifica_pontos_iguais(ponto, node) -> bool:
     x_ponto = ponto[0]
@@ -54,9 +55,12 @@ def retorna_valores_cores(caminho,rgb) -> dict:
 
 def retorna_lista_labels(grafico,nomes):
     nomes_nodos = {}
+    matriz_pesos = Matrizes.matriz_de_pesos
     i = 0
     for nodo in grafico:
-        nomes_nodos[nodo] = nomes[i]
+        x,y = nodo
+        peso = matriz_pesos[y][x]
+        nomes_nodos[nodo] = f'{nomes[i]} ({peso})'
         i += 1
     return nomes_nodos
 
