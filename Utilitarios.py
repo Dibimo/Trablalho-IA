@@ -59,7 +59,7 @@ def retorna_lista_labels(grafico,nomes):
     i = 0
     for nodo in grafico:
         x,y = nodo
-        peso = matriz_pesos[y][x]
+        peso = matriz_pesos[y][x] if matriz_pesos[y][x] != None else 'N'
         nomes_nodos[nodo] = f'{nomes[i]} ({peso})'
         i += 1
     return nomes_nodos
