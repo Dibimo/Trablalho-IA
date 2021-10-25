@@ -49,7 +49,7 @@ def retorna_valores_cores(caminho,rgb) -> dict:
     cores = {}
     for i in range(0,quantidade_de_nodos):
         x,y = caminho[i]
-        cores[(x,y)] = converter_para_hexadecimal([(pixel * (i+5)) for pixel in invervalos])
+        cores[(x,y)] = converter_para_hexadecimal([(pixel * (i+2)) for pixel in invervalos])
 
     return cores
 
@@ -60,20 +60,33 @@ def retorna_lista_labels(grafico,nomes):
     for nodo in grafico:
         x,y = nodo
         peso = matriz_pesos[y][x] if matriz_pesos[y][x] != None else 'N'
-        nomes_nodos[nodo] = f'{nomes[i]} ({peso})'
+        nomes_nodos[nodo] = f'{nomes[i]} {peso}'
         i += 1
     return nomes_nodos
 
 def retorna_lista_cores(grafico,matriz_de_pesos,caminho,cor_rgb):
     valores_cores_caminho = retorna_valores_cores(caminho, cor_rgb)
     lista_de_cores = []
+    temp = [
+        [1,0],
+        [3,1],
+        [5,4],
+        [6,5],
+        [4,7],
+        [7,6]
+    ]
     for nodo in grafico:
         cor_nodo = "orange"
         x, y = nodo
+        if([x,y] in temp):
+            cor_nodo = "#4b83c4"
+        if(x == 0 and y == 2):
+            cor_nodo = "#9e4bc4"
         if([x, y] in caminho):
             cor_nodo = valores_cores_caminho[nodo]
         if(matriz_de_pesos[y][x] == None):
             cor_nodo = "#bd2b2b"
+            # print((x,y))
         lista_de_cores.append(cor_nodo)
     return lista_de_cores
 
