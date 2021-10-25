@@ -1,11 +1,12 @@
-from astar_python.astar import Astar
+# from astar_python.astar import Astar
+from astar import Astar
 from Utilitarios import retorna_lista_cores, retorna_lista_labels, verifica_pontos_iguais, receber_valores
 import matplotlib.pyplot as plt
 import networkx as nx
 import Matrizes
 
-LARGURA_MATRIZ = 11
-ALTURA_MATRIZ = 10
+LARGURA_MATRIZ = 8
+ALTURA_MATRIZ = 8
 
 def main():
     # Atribuição das matrizes de pesos e nomes
@@ -15,13 +16,27 @@ def main():
     ################# A* Rodando ######################
 
     # Recebendo valores
-    x0, y0, x, y = receber_valores(LARGURA_MATRIZ - 1,ALTURA_MATRIZ - 1)
+    # x0, y0, x, y = receber_valores(LARGURA_MATRIZ - 1,ALTURA_MATRIZ - 1)
+    x0, y0, x, y = 0,2,1,0
 
     # Gerando mapa de pontos
     mapa = Astar(matriz_de_pesos)
 
     # Encontrando o caminho entre os pontos estipulados
     caminho = mapa.run([x0, y0], [x, y])
+
+    peso_destino = matriz_de_pesos[y][x]
+    caminho = [[0,2],[0,1],[0,0],[1,0]]
+    # caminho dele -> [[0, 2], [1, 3], [2, 3], [3, 2], [2, 1], [1, 0]]
+    soma = 0
+    for ponto in caminho:
+        x_p,y_p = ponto
+        peso = matriz_de_pesos[y_p][x_p]
+        heuristico = mapa.heuristic(Astar.Node(x_p,y_p,peso),Astar.Node(x,y,peso_destino))
+        soma += (peso)
+
+    print(caminho)
+    print(soma)
 
     ################# gráfico #########################
     # Gerando gráfico vazio
@@ -58,7 +73,7 @@ def main():
             node_size=1000)
     
     # Desenhando nomes dos nodos
-    nx.draw_networkx_labels(grafico,posicoes,labels=nomes_nodos,font_size=8)
+    nx.draw_networkx_labels(grafico,posicoes,labels=nomes_nodos,font_size=12)
     plt.show()
 
 main()
