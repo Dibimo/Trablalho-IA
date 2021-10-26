@@ -12,9 +12,8 @@ class Astar:
             self.heuristic = 0
             self.parent = None
 
-        def __repr__(self):
-            # return f"({self.weight} | {self.heuristic})"
-            return f"({self.x} | {self.y})"
+        def __lt__(self,other):
+            return self.heuristic < other.heuristic
 
     def print(self):
         for y in self.mat:
@@ -43,25 +42,14 @@ class Astar:
 
     def neighbours(self, matrix, current):
         neighbours_list = []
-        # if current.x - 1 >= 0 and current.y - 1 >= 0 and matrix[current.y - 1][current.x - 1].weight is not None:
-        #     neighbours_list.append(matrix[current.y - 1][current.x - 1])
         if current.x - 1 >= 0 and matrix[current.y][current.x - 1].weight is not None:
             neighbours_list.append(matrix[current.y][current.x - 1])
-        # if current.x - 1 >= 0 and current.y + 1 < len(matrix) and matrix[current.y + 1][
-        #     current.x - 1].weight is not None:
-        #     neighbours_list.append(matrix[current.y + 1][current.x - 1])
         if current.y - 1 >= 0 and matrix[current.y - 1][current.x].weight is not None:
             neighbours_list.append(matrix[current.y - 1][current.x])
         if current.y + 1 < len(matrix) and matrix[current.y + 1][current.x].weight is not None:
             neighbours_list.append(matrix[current.y + 1][current.x])
-        # if current.x + 1 < len(matrix[0]) and current.y - 1 >= 0 and matrix[current.y - 1][
-        #     current.x + 1].weight is not None:
-        #     neighbours_list.append(matrix[current.y - 1][current.x + 1])
         if current.x + 1 < len(matrix[0]) and matrix[current.y][current.x + 1].weight is not None:
             neighbours_list.append(matrix[current.y][current.x + 1])
-        # if current.x + 1 < len(matrix[0]) and current.y + 1 < len(matrix) and matrix[current.y + 1][
-        #     current.x + 1].weight is not None:
-        #     neighbours_list.append(matrix[current.y + 1][current.x + 1])
         return neighbours_list
 
     def build(self, end):
@@ -72,22 +60,7 @@ class Astar:
             path.append([node_tmp.x, node_tmp.y])
             total_sum += node_tmp.weight
             node_tmp = node_tmp.parent
-        # return (list(reversed(path)),total_sum)
         return list(reversed(path))
-
-    def find_shortest_path(self, point_start, point_end):
-        final_path = []
-        matrix = self.mat
-        start = self.Node(point_start[0], point_start[1])
-        neighbours_point_start = self.neighbours(matrix,start)
-        sum_path = math.inf
-        for neighbour in neighbours_point_start:
-            path,sum_ = self.run([neighbour.x,neighbour.y],point_end)
-            if (sum_ < sum_path):
-                final_path = path
-        
-        return final_path
-
 
     def run(self, point_start, point_end):
         matrix = self.mat
@@ -96,23 +69,9 @@ class Astar:
         closed_list = []
         open_list = [start]
 
-        i = 0
         while open_list:
-            i += 1
+            open_list.sort()
             current_node = open_list.pop(0)
-            print(f'Laço: {i}')
-            print(f'Nodo atual: {current_node.x} {current_node.y}')
-            print()
-
-            for node in open_list:
-                print(f'Nodo: {node.x} {node.y}')
-                print(f'Heuristica: {node.heuristic}')
-                print()
-                if node.heuristic < current_node.heuristic:
-                    current_node = node
-
-            print(f'Nodo escolhido no laço: {current_node.x} {current_node.y}')
-            print('-----------')
 
             if self.equal(current_node, end):
                 return self.build(current_node)
@@ -125,8 +84,6 @@ class Astar:
             closed_list.append(current_node)
 
             for neighbour in self.neighbours(matrix, current_node):
-                # if neighbour in closed_list:
-                #     continue
                 if self.neighbours_in_closed_list(closed_list,neighbour):
                     continue
                 if neighbour.heuristic < current_node.heuristic or neighbour not in open_list:
@@ -134,6 +91,5 @@ class Astar:
                     neighbour.parent = current_node
                 if neighbour not in open_list:
                     open_list.append(neighbour)
-            print(closed_list)
         return None
 
