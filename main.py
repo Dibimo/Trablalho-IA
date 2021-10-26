@@ -17,16 +17,17 @@ def main():
 
     # Recebendo valores
     # x0, y0, x, y = receber_valores(LARGURA_MATRIZ - 1,ALTURA_MATRIZ - 1)
-    x0, y0, x, y = 0,2,1,0
+    x0, y0, x, y = 0,2,7,7
 
     # Gerando mapa de pontos
     mapa = Astar(matriz_de_pesos)
 
     # Encontrando o caminho entre os pontos estipulados
     caminho = mapa.run([x0, y0], [x, y])
-
+    # caminho = mapa.find_shortest_path([x0, y0], [x, y])
     peso_destino = matriz_de_pesos[y][x]
-    caminho = [[0,2],[0,1],[0,0],[1,0]]
+    # caminho = [[7, 6], [6, 5], [6, 4], [6, 3], [5, 2], [4, 1], [3, 1], [2, 1], [1, 1], [0, 2]]
+    # caminho = [[0, 2], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [4, 4], [5, 4], [6, 4], [7, 4], [7, 5], [7, 6], [7, 7]]
     # caminho dele -> [[0, 2], [1, 3], [2, 3], [3, 2], [2, 1], [1, 0]]
     soma = 0
     for ponto in caminho:
@@ -49,16 +50,7 @@ def main():
     # Gerando nodos
     posicoes = {(x, y): (x, -y) for x, y in grafico.nodes()}
 
-    # Adicionando as linhas na vertical entre os nodos
-    grafico.add_edges_from([
-        ((x, y), (x+1, y+1))
-        for x in range(LARGURA_MATRIZ - 1)
-        for y in range(ALTURA_MATRIZ - 1)
-    ] + [
-        ((x+1, y), (x, y+1))
-        for x in range(LARGURA_MATRIZ - 1)
-        for y in range(ALTURA_MATRIZ - 1)
-    ], weight=1.4)
+    
 
     ################# Nomeando nodos ################
     nomes_nodos = retorna_lista_labels(grafico,nomes)
