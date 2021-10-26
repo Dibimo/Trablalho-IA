@@ -16,28 +16,13 @@ def main():
     ################# A* Rodando ######################
 
     # Recebendo valores
-    # x0, y0, x, y = receber_valores(LARGURA_MATRIZ - 1,ALTURA_MATRIZ - 1)
-    x0, y0, x, y = 0,2,7,7
+    x0, y0, x, y = receber_valores(LARGURA_MATRIZ - 1,ALTURA_MATRIZ - 1)
 
     # Gerando mapa de pontos
     mapa = Astar(matriz_de_pesos)
 
     # Encontrando o caminho entre os pontos estipulados
     caminho = mapa.run([x0, y0], [x, y])
-    # caminho = mapa.find_shortest_path([x0, y0], [x, y])
-    peso_destino = matriz_de_pesos[y][x]
-    # caminho = [[7, 6], [6, 5], [6, 4], [6, 3], [5, 2], [4, 1], [3, 1], [2, 1], [1, 1], [0, 2]]
-    # caminho = [[0, 2], [0, 3], [1, 3], [2, 3], [3, 3], [4, 3], [4, 4], [5, 4], [6, 4], [7, 4], [7, 5], [7, 6], [7, 7]]
-    # caminho dele -> [[0, 2], [1, 3], [2, 3], [3, 2], [2, 1], [1, 0]]
-    soma = 0
-    for ponto in caminho:
-        x_p,y_p = ponto
-        peso = matriz_de_pesos[y_p][x_p]
-        heuristico = mapa.heuristic(Astar.Node(x_p,y_p,peso),Astar.Node(x,y,peso_destino))
-        soma += (peso)
-
-    print(caminho)
-    print(soma)
 
     ################# gráfico #########################
     # Gerando gráfico vazio
@@ -49,8 +34,6 @@ def main():
 
     # Gerando nodos
     posicoes = {(x, y): (x, -y) for x, y in grafico.nodes()}
-
-    
 
     ################# Nomeando nodos ################
     nomes_nodos = retorna_lista_labels(grafico,nomes)
