@@ -49,7 +49,7 @@ def retorna_valores_cores(caminho,rgb) -> dict:
     cores = {}
     for i in range(0,quantidade_de_nodos):
         x,y = caminho[i]
-        cores[(x,y)] = converter_para_hexadecimal([(pixel * (i+2)) for pixel in invervalos])
+        cores[(x,y)] = converter_para_hexadecimal([(pixel * (i+3)) for pixel in invervalos])
 
     return cores
 
@@ -86,7 +86,6 @@ def retorna_lista_cores(grafico,matriz_de_pesos,caminho,cor_rgb):
             cor_nodo = valores_cores_caminho[nodo]
         if(matriz_de_pesos[y][x] == None):
             cor_nodo = "#bd2b2b"
-            # print((x,y))
         lista_de_cores.append(cor_nodo)
     return lista_de_cores
 

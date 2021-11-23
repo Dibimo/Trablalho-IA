@@ -1,9 +1,4 @@
 N = None
-################### espaço amostral para percorrer #####################
-# distancia é sempre 1
-# 0 siguinifica custo 0 para percorrer
-# maiores valores implicam em desviar a rota, buscando um custo menor
-
 matriz_de_pesos = [
     [1, 3, 3, 3, 3, 1, 2, N],
     [3, 3, 2, 2, 2, 1, N, 1],
@@ -23,4 +18,5 @@ nomes = [
     'A4', 'B4', 'C4', 'D4', 'E4', 'F4', 'G4', 'H4',
     'A5', 'B5', 'C5', 'D5', 'E5', 'F5', 'G5', 'H5',
     'A6', 'B6', 'C6', 'D6', 'E6', 'F6', 'G6', 'H6',
-    'A7', 'B7', 'C7', 'D7', 'E7', 'F7', 'G7', 'H7']
+    'A7', 'B7', 'C7', 'D7', 'E7', 'F7', 'G7', 'H7'
+    ]
